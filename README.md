@@ -1,0 +1,2 @@
+# SzamGepGrafika
+Számítógép grafika gyakorlat 
