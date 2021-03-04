@@ -25,12 +25,12 @@ void restart_game(Game* game)
 void update_game(Game* game, double time)
 {
     update_ball(&(game->ball), time);
-    if (game->ball.x - game->ball.radius < 50) {
-        game->ball.x = game->ball.radius + 50;
+    if (game->ball.x - game->ball.radius < 20) {
+        game->ball.x = game->ball.radius + 20;
         game->ball.speed_x *= -1;
     }
-    if (game->ball.x + game->ball.radius > game->width - 50) {
-        game->ball.x = game->width - game->ball.radius - 50;
+    if (game->ball.x + game->ball.radius > game->width - 20) {
+        game->ball.x = game->width - game->ball.radius - 20;
         game->ball.speed_x *= -1;
     }
     if (game->ball.y - game->ball.radius < 0) {

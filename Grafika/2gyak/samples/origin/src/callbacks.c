@@ -43,27 +43,35 @@ void reshape(GLsizei width, GLsizei height)
 
 void motion(int x, int y)
 {
-    // rotate_camera(&camera, x, y);
+    //rotate_camera(&camera, x, y);
     glutPostRedisplay();
 }
 
 void keyboard(unsigned char key, int x, int y)
 {
     float position;
-
+    const float speed = 1.0;
+    const float rotation_speed = 10.0;
     switch (key) {
     case 'w':
-        set_camera_speed(&camera, 0.1);
+        set_camera_speed(&camera, speed);
         break;
     case 's':
-        set_camera_speed(&camera, -0.1);
+        set_camera_speed(&camera, -speed);
         break;
     case 'a':
-        set_camera_side_speed(&camera, 0.1);
+        set_camera_side_speed(&camera, speed);
         break;
     case 'd':
-        set_camera_side_speed(&camera, -0.1);
+        set_camera_side_speed(&camera, -speed);
         break;
+    case 'q':
+        set_camera_horizontal_rotation_speed(&camera, rotation_speed);
+        break;
+    case 'e':
+        set_camera_horizontal_rotation_speed(&camera, -rotation_speed);
+        break;
+  
     }
 
     glutPostRedisplay();
@@ -81,6 +89,10 @@ void keyboard_up(unsigned char key, int x, int y)
     case 'a':
     case 'd':
         set_camera_side_speed(&camera, 0.0);
+        break;
+    case 'q':
+    case 'e':
+        set_camera_horizontal_rotation_speed(&camera, 0.0);
         break;
     }
 

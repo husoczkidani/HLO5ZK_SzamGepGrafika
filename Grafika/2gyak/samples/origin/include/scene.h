@@ -19,6 +19,11 @@ void init_scene(Scene* scene);
 void draw_scene(const Scene* scene);
 
 /**
+ * 
+ */
+void draw_cylinder();
+
+/**
  * Draw the origin of the world coordinate system.
  */
 void draw_origin();

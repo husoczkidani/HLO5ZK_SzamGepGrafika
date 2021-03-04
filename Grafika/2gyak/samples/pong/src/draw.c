@@ -7,7 +7,7 @@ void draw_game(Game* game)
     float x1, x2, y1, y2;
 
     x1 = 0;
-    x2 = 50;
+    x2 = 20;
     y1 = game->left_pad.position;
     y2 = y1 + game->left_pad.size;
 
@@ -27,7 +27,7 @@ void draw_game(Game* game)
 
     glEnd();
 
-    x1 = game->width - 50;
+    x1 = game->width - 20;
     x2 = game->width;
     y1 = game->right_pad.position;
     y2 = y1 + game->right_pad.size;
@@ -51,7 +51,7 @@ void draw_game(Game* game)
     glPushMatrix();
     glTranslatef(game->ball.x, game->ball.y, 0.0);
     glColor3f(1.0, 0.9, 0.8);
-    glutSolidSphere(game->ball.radius, 8, 8);
+    glutSolidSphere(game->ball.radius, 80, 80);
     glPopMatrix();
 }
 
