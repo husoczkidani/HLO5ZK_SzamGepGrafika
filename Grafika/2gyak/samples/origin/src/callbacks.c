@@ -1,6 +1,6 @@
 #include "callbacks.h"
 
-#define VIEWPORT_RATIO (4.0 / 3.0)
+#define VIEWPORT_RATIO (16.0 / 9.0)
 #define VIEWPORT_ASPECT 50.0
 
 void display()
@@ -50,8 +50,8 @@ void motion(int x, int y)
 void keyboard(unsigned char key, int x, int y)
 {
     float position;
-    const float speed = 1.0;
-    const float rotation_speed = 10.0;
+    const float speed = 10.0;
+    const float rotation_speed = 30.0;
     switch (key) {
     case 'w':
         set_camera_speed(&camera, speed);
@@ -71,7 +71,35 @@ void keyboard(unsigned char key, int x, int y)
     case 'e':
         set_camera_horizontal_rotation_speed(&camera, -rotation_speed);
         break;
-  
+    case 'r':
+        set_camera_vertical_speed(&camera, speed);
+        break;
+    case 'f':
+        set_camera_vertical_speed(&camera, -speed);
+        break;
+    case 't':
+        set_camera_vertical_rotation_speed(&camera, rotation_speed);
+        break;
+    case 'g':
+        set_camera_vertical_rotation_speed(&camera, -rotation_speed);
+        break;
+
+    }  
+
+    glutPostRedisplay();
+}
+
+void extra_keyboard( int x, int y){
+    float position;
+    const float speed = 10.0;
+
+    switch ( glutGetModifiers()){
+        case GLUT_ACTIVE_CTRL:
+            set_camera_vertical_speed(&camera, -speed);
+            break;
+        case GLUT_ACTIVE_SHIFT:
+            set_camera_vertical_speed(&camera, speed);
+            break;
     }
 
     glutPostRedisplay();
@@ -94,11 +122,32 @@ void keyboard_up(unsigned char key, int x, int y)
     case 'e':
         set_camera_horizontal_rotation_speed(&camera, 0.0);
         break;
+    case 'r':
+    case 'f':
+        set_camera_vertical_speed(&camera, 0.0);
+        break;
+    case 't':
+    case 'g':
+        set_camera_vertical_rotation_speed(&camera, 0.0);
+        break;
+    }
+
+    
+    glutPostRedisplay();
+}
+
+void extra_keyboard_up(int x, int y){
+    float position;
+
+    switch ( glutGetModifiers()){
+        case GLUT_ACTIVE_CTRL:
+        case GLUT_ACTIVE_SHIFT:
+            set_camera_vertical_speed(&camera, 0.0);
+            break;
     }
 
     glutPostRedisplay();
 }
-
 void idle()
 {
     static int last_frame_time = 0;
