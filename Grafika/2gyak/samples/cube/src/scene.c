@@ -7,10 +7,9 @@
 
 void init_scene(Scene* scene)
 {
-    load_model(&(scene->cube), "cube.obj");
-    scene->texture_id = load_texture("cube.png"); 
+    load_model(&(scene->cube), "duck.obj");
+    scene->texture_id = load_texture("duck.jpg"); 
 
-    glBindTexture(GL_TEXTURE_2D, scene->texture_id);
 
     scene->material.ambient.red = 1.0;
     scene->material.ambient.green = 1.0;
@@ -29,8 +28,8 @@ void init_scene(Scene* scene)
 
 void set_lighting()
 {
-    float ambient_light[] = { 0.9f, 0.9f, 0.9f, 1.0f };
-    float diffuse_light[] = { 0.9f, 0.9f, 0.9, 1.0f };
+    float ambient_light[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+    float diffuse_light[] = { 0.5f, 0.5f, 0.5, 1.0f };
     float specular_light[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     float position[] = { 0.0f, 0.0f, 10.0f, 1.0f };
 
@@ -72,6 +71,8 @@ void draw_scene(const Scene* scene)
     set_material(&(scene->material));
     set_lighting();
     draw_origin();
+    glScalef(0.02,0.02,0.02);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_id);
     draw_model(&(scene->cube));
 }
 
