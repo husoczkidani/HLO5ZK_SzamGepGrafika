@@ -11,26 +11,41 @@ void init_scene(Scene* scene)
 void draw_scene(const Scene* scene)
 {
     draw_origin();
-   /* glPushMatrix();
+    glPushMatrix();
     draw_cylinder();
     glPopMatrix();
-*/
 
 
+ glBegin(GL_QUADS);
 
-    glBegin(GL_QUADS);
-
-    glColor3f(0.5, 0, 0.5 );
+    glColor3f(1, 0, 0 );
     glVertex3f(40, 40, -1);
 
-    glColor3f(0, 0.5, 0.5 );
+    glColor3f(0, 1,0 );
     glVertex3f(-40, 40, -1);
 
-    glColor3f(0.5, 0.5, 0 );
+    glColor3f(0, 0, 1 );
     glVertex3f(-40, -40, -1);
 
-    glColor3f(0.5, 0.5, 0.5 );
+    glColor3f(1, 1, 1 );
     glVertex3f(40, -40, -1);
+
+    
+
+    
+
+    glEnd();
+
+
+
+    glBegin(GL_LINE_STRIP);
+
+    glColor3f(1, 1, 1 );
+
+    glVertex3f(40, 40, 0);
+    glVertex3f(-40, 40, 0);
+    glVertex3f(40, -40, 0);
+    glVertex3f(-40, -40, 0);
 
     glEnd();
     

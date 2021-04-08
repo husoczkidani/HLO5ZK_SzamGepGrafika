@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "math.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "load.h": "c",
+        "draw.h": "c"
     }
 }
