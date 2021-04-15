@@ -23,7 +23,7 @@ typedef struct Scene
     Object rock3;
     Object aloe;
     Object cactus1;
-    Object cactus2;
+    Object bush1;
     Material material;
     GLuint texture_id[5];
 } Scene;

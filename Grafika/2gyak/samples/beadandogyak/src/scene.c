@@ -93,7 +93,10 @@ void draw_scene(const Scene* scene)
     draw_model(&(scene->hills));
     glPopMatrix();
 
-    draw_model(&(scene->cactus1));
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene->texture_id[3]);
+    draw_model(&(scene->bush1));
+    glPopMatrix();
 
 
 
