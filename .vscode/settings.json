@@ -3,6 +3,11 @@
         "math.h": "c",
         "cmath": "c",
         "load.h": "c",
-        "draw.h": "c"
-    }
+        "draw.h": "c",
+        "stdio.h": "c",
+        "scene.h": "c",
+        "stdlib.h": "c",
+        "regex": "c"
+    },
+    "C_Cpp.dimInactiveRegions": false
 }

@@ -1,6 +1,6 @@
 #include "callbacks.h"
 
-#define VIEWPORT_RATIO (4.0 / 3.0)
+#define VIEWPORT_RATIO (16.0 / 9.0)
 #define VIEWPORT_ASPECT 50.0
 
 struct {
@@ -66,18 +66,19 @@ void motion(int x, int y)
 
 void keyboard(unsigned char key, int x, int y)
 {
+    int speed = 3;
     switch (key) {
     case 'w':
-        set_camera_speed(&camera, 1);
+        set_camera_speed(&camera, speed);
         break;
     case 's':
-        set_camera_speed(&camera, -1);
+        set_camera_speed(&camera, -speed);
         break;
     case 'a':
-        set_camera_side_speed(&camera, 1);
+        set_camera_side_speed(&camera, speed);
         break;
     case 'd':
-        set_camera_side_speed(&camera, -1);
+        set_camera_side_speed(&camera, -speed);
         break;
     case 't':
         if (is_preview_visible) {
