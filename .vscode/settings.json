@@ -7,7 +7,9 @@
         "stdio.h": "c",
         "scene.h": "c",
         "stdlib.h": "c",
-        "regex": "c"
+        "regex": "c",
+        "glut.h": "c",
+        "help.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }
