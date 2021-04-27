@@ -12,18 +12,30 @@ void can_move(Camera* camera)
     if(camera->position.x>size || camera->position.x<-size || camera->position.y<-size || camera->position.y>size)
 	{
 		camera->position = camera->prev_position;
-	}		
+	}
+	if(camera->position.x<10 && camera->position.x>-10 && camera->position.y<10 && camera->position.y>-10)
+	{
+		camera->position = camera->prev_position;
+	}
+	if(camera->position.x<-105 && camera->position.y > 106 && camera->position.y < 106.5)
+	{
+		camera->position = camera->prev_position;
+	}
+	if((camera->position.x <-104.5 && camera->position.x > -105) && ((camera->position.y > 106 && camera->position.y < 107.5) || camera->position.y > 108))
+	{
+		camera->position = camera->prev_position;
+	}	
 }
 
 void init_camera(Camera* camera)
 {
-    camera->position.x = 0.0;
-    camera->position.y = 0.0;
+    camera->position.x = -103.0;
+    camera->position.y = 108.0;
     camera->position.z = 1;
     
     camera->pose.x = 90;
 	camera->pose.y = 0;
-	camera->pose.z = -90;
+	camera->pose.z = -135;
 
     is_help_visible = FALSE;
 }

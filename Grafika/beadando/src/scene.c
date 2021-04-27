@@ -11,8 +11,10 @@
 void init_scene(Scene* scene)
 {
     init_models(scene);
+    init_lists(scene);
     init_textures(scene);
     set_position(scene);
+    set_rotation(scene);
     scene->light = 0.5f;
 
     
@@ -20,9 +22,9 @@ void init_scene(Scene* scene)
     scene->material.ambient.green = 1.0;
     scene->material.ambient.blue = 1.0;
 
-    scene->material.diffuse.red = 1.0;
-    scene->material.diffuse.green = 1.0;
-    scene->material.diffuse.blue = 1.0;
+    scene->material.diffuse.red = 0.7;
+    scene->material.diffuse.green = 0.7;
+    scene->material.diffuse.blue = 0.7;
 
     scene->material.specular.red = 0.0;
     scene->material.specular.green = 0.0;
@@ -32,20 +34,30 @@ void init_scene(Scene* scene)
 }
 void init_models(Scene* scene)
 {
-     load_model(&(scene->hills), "models/hill.obj");
-     int i;
-     for(i = 0; i<20;i++)
-     {
-         load_model(&(scene->cactus1[i]), "models/cactus01.obj");
-     }
-     for(i = 0; i<20;i++)
-     {
-         load_model(&(scene->cactus2[i]), "models/cactus02.obj");
-     }
-     for(i = 0; i<20;i++)
-     {
-         load_model(&(scene->cactus3[i]), "models/cactus03.obj");
-     }
+    load_model(&(scene->hills), "models/hills.obj");
+    load_model(&(scene->cottage), "models/cottages.obj");
+    load_model(&(scene->campfire), "models/campfire.obj");
+    load_model(&(scene->cactus1[0]), "models/cactus01.obj");
+    load_model(&(scene->cactus2[0]), "models/cactus02.obj");
+    load_model(&(scene->cactus3[0]), "models/cactus03.obj");
+
+}
+void init_lists(Scene* scene)
+{
+    scene->staticobject_display_list_id[0] = glGenLists(1);
+    glNewList(scene->staticobject_display_list_id[0],GL_COMPILE);
+    draw_model(&(scene->cactus1[0]));
+    glEndList();
+
+    scene->staticobject_display_list_id[1] = glGenLists(1);
+    glNewList(scene->staticobject_display_list_id[1],GL_COMPILE);
+    draw_model(&(scene->cactus2[0]));
+    glEndList();
+
+    scene->staticobject_display_list_id[2] = glGenLists(1);
+    glNewList(scene->staticobject_display_list_id[2],GL_COMPILE);
+    draw_model(&(scene->cactus3[0]));
+    glEndList();
 }
 void init_textures(Scene* scene)
 {
@@ -53,6 +65,9 @@ void init_textures(Scene* scene)
     scene->texture_id[1] = load_texture("textures/floor.png");
     scene->texture_id[2] = load_texture("textures/ceiling.png");
     scene->texture_id[3] = load_texture("textures/guide.png");
+    scene->texture_id[4] = load_texture("textures/fa.png");
+    scene->texture_id[5] = load_texture("textures/campfire.png");
+
 
 }
 void set_lighting(Scene* scene)
@@ -63,17 +78,17 @@ void set_lighting(Scene* scene)
 
 	ambient_light[0] = scene->light;
 	ambient_light[1] = scene->light;
-	ambient_light[2] = scene->light;
+	ambient_light[2] = scene->light-0.05;
 	ambient_light[3] = 1.0f;
 
 	diffuse_light[0] = scene->light;
 	diffuse_light[1] = scene->light;
-	diffuse_light[2] = scene->light;
+	diffuse_light[2] = scene->light-0.05;
 	diffuse_light[3] = 1.0f;
 
 	specular_light[0] = scene->light;
 	specular_light[1] = scene->light;
-	specular_light[2] = scene->light;
+	specular_light[2] = scene->light-0.05;
 	specular_light[3] = 1.0f;
 
     float position[] = { 0.0f, 0.0f, 50.0f, 0.0f };
@@ -111,34 +126,58 @@ void set_material(const Material* material)
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &(material->shininess));
 }
 
+void set_rotation(Scene* scene)
+{
+    int rotationz;
+    int i;
+
+    srand(time(NULL));
+    for(i = 0; i<40;i++)
+    {
+        rotationz = rand() % (1 - 180) + 180;
+        scene->cactus1[i].rotation = rotationz;
+    }
+    for(i = 0; i<60;i++)
+    {
+        rotationz = rand() % (1 - 180) + 180;
+        scene->cactus2[i].rotation = rotationz;
+    }
+    for(i = 0; i<40;i++)
+    {
+        rotationz = rand() % (1 - 180) + 180;
+        scene->cactus3[i].rotation = rotationz;
+    }
+
+}
 void set_position(Scene* scene)
 {
     int xy[2];
     int i,j;
-    for(i = 0; i<20;i++)
+
+    srand(time(NULL));
+    for(i = 0; i<40;i++)
     {
         for( j = 0; j<2; j++)
         {
-            xy[j] = rand() % (81 - (-80)) -80;
+            xy[j] = rand() % (106 - (-105)) -105;
         }
         scene->cactus1[i].position.x = xy[0];
         scene->cactus1[i].position.y = xy[1];
     }
-    srand(time(NULL));
-    for(i = 0; i<20;i++)
+    for(i = 0; i<60;i++)
     {
         for( j = 0; j<2; j++)
         {
-            xy[j] = rand() % (81 - (-80)) -80;
+            xy[j] = rand() % (106 - (-105)) -105;
         }
         scene->cactus2[i].position.x = xy[0];
         scene->cactus2[i].position.y = xy[1];
     }
-    for(i = 0; i<20;i++)
+    for(i = 0; i<40;i++)
     {
         for( j = 0; j<2; j++)
         {
-            xy[j] = rand() % (81 - (-80)) -80;
+            xy[j] = rand() % (106 - (-105)) -105;
         }
         scene->cactus3[i].position.x = xy[0];
         scene->cactus3[i].position.y = xy[1];
@@ -162,7 +201,16 @@ void draw_scene(const Scene* scene)
     draw_model(&(scene->hills));
     glPopMatrix();
 
-    
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene->texture_id[4]);
+    draw_model(&(scene->cottage));
+    glPopMatrix();
+
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene->texture_id[5]);
+    draw_model(&(scene->campfire));
+    glPopMatrix();
+
     glDisable(GL_TEXTURE_2D);
 }
 void draw_sky(Scene* scene)
@@ -210,8 +258,6 @@ void draw_ground(Scene* scene)
 			glTexCoord2f(0.0, 1.0);
 			glNormal3f(0, -1, 0);
 			glVertex3f(x, y, z + 3);   
-
-			
 		}
 	}
 	glEnd();
@@ -220,26 +266,29 @@ void draw_cactus(Scene* scene)
 {   
     int i;
     glBindTexture(GL_TEXTURE_2D, scene->texture_id[0]);
-    for (i=0;i<20;i++)
+    for (i=0;i<40;i++)
     {
         glPushMatrix();
         glTranslatef(scene->cactus1[i].position.x,0,scene->cactus1[i].position.y);
-        draw_model(&(scene->cactus1[i]));
+        glRotatef(scene->cactus1[i].rotation,0,1,0);
+        glCallList(scene->staticobject_display_list_id[0]);
         glPopMatrix();
     }
     
-    for (i=0;i<20;i++)
+    for (i=0;i<60;i++)
     {
         glPushMatrix();
         glTranslatef(scene->cactus2[i].position.x,0,scene->cactus2[i].position.y);
-        draw_model(&(scene->cactus2[i]));
+        glRotatef(scene->cactus2[i].rotation,0,1,0);
+        glCallList(scene->staticobject_display_list_id[1]);
         glPopMatrix();
     }
-    for (i=0;i<20;i++)
+    for (i=0;i<40;i++)
     {
         glPushMatrix();
         glTranslatef(scene->cactus3[i].position.x,0,scene->cactus3[i].position.y);
-        draw_model(&(scene->cactus3[i]));
+        glRotatef(scene->cactus3[i].rotation,0,1,0);
+        glCallList(scene->staticobject_display_list_id[2]);
         glPopMatrix();
     }
     

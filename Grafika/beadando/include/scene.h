@@ -15,21 +15,33 @@ typedef struct Object
 	vec3 prev_position;
 } Object;
 
+// Non movable objects
+typedef struct StaticObject
+{
+    Model model;
+    vec3 position;
+    float rotation;
+} StaticObject;
+
 typedef struct Scene
 {
-    Object hills;
-    Object aloe[20];
-    Object cactus1[20];
-    Object cactus2[20];
-    Object cactus3[20];
+    GLuint staticobject_display_list_id[4];
+
+    StaticObject hills;
+    StaticObject cottage;
+    StaticObject campfire;
+    StaticObject aloe[20];
+    StaticObject cactus1[40];
+    StaticObject cactus2[60];
+    StaticObject cactus3[40];
     Material material;
-    GLuint texture_id[5];
+    GLuint texture_id[10];
     float light;
 } Scene;
 
 
 /**
- * Initialize the scene by loading models.
+ * Initialize the scene
  */
 void init_scene(Scene* scene);
 
@@ -48,16 +60,44 @@ void set_material(const Material* material);
  */
 void draw_scene(const Scene* scene);
 
+/**
+ * Load models
+ */ 
 void init_models(Scene* scene);
 
+/**
+ * Load textures
+ */
 void init_textures(Scene* scene);
 
+/**
+ * Create Display Lists
+ */
+void init_lists(Scene* scene);
+
+/**
+ * Make and draw the ground
+ */
 void draw_ground(Scene* scene);
 
+/**
+ * Make and draw the sky
+ */
 void draw_sky(Scene* scene);
 
+/**
+ * Draw the cactuses
+ */
 void draw_cactus(Scene* scene);
 
+/**
+ * Set the objects position
+ */
 void set_position(Scene* scene);
+
+/**
+ * Set the object rotation
+ */
+void set_rotation(Scene* scene);
 
 #endif /* SCENE_H */
