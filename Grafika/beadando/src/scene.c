@@ -37,26 +37,27 @@ void init_models(Scene* scene)
     load_model(&(scene->hills), "models/hills.obj");
     load_model(&(scene->cottage), "models/cottages.obj");
     load_model(&(scene->campfire), "models/campfire.obj");
-    load_model(&(scene->cactus1[0]), "models/cactus01.obj");
-    load_model(&(scene->cactus2[0]), "models/cactus02.obj");
-    load_model(&(scene->cactus3[0]), "models/cactus03.obj");
+    load_model(&(scene->cactus1_model), "models/cactus01.obj");
+    load_model(&(scene->cactus2_model), "models/cactus02.obj");
+    load_model(&(scene->cactus3_model), "models/cactus03.obj");
+    load_model(&(scene->eagle), "models/eagle.obj");
 
 }
 void init_lists(Scene* scene)
 {
     scene->staticobject_display_list_id[0] = glGenLists(1);
     glNewList(scene->staticobject_display_list_id[0],GL_COMPILE);
-    draw_model(&(scene->cactus1[0]));
+    draw_model(&(scene->cactus1_model));
     glEndList();
 
     scene->staticobject_display_list_id[1] = glGenLists(1);
     glNewList(scene->staticobject_display_list_id[1],GL_COMPILE);
-    draw_model(&(scene->cactus2[0]));
+    draw_model(&(scene->cactus2_model));
     glEndList();
 
     scene->staticobject_display_list_id[2] = glGenLists(1);
     glNewList(scene->staticobject_display_list_id[2],GL_COMPILE);
-    draw_model(&(scene->cactus3[0]));
+    draw_model(&(scene->cactus3_model));
     glEndList();
 }
 void init_textures(Scene* scene)
@@ -67,6 +68,7 @@ void init_textures(Scene* scene)
     scene->texture_id[3] = load_texture("textures/guide.png");
     scene->texture_id[4] = load_texture("textures/fa.png");
     scene->texture_id[5] = load_texture("textures/campfire.png");
+    scene->texture_id[6] = load_texture("textures/eagle.png");
 
 
 }
@@ -137,7 +139,7 @@ void set_rotation(Scene* scene)
         rotationz = rand() % (1 - 180) + 180;
         scene->cactus1[i].rotation = rotationz;
     }
-    for(i = 0; i<60;i++)
+    for(i = 0; i<70;i++)
     {
         rotationz = rand() % (1 - 180) + 180;
         scene->cactus2[i].rotation = rotationz;
@@ -153,6 +155,7 @@ void set_position(Scene* scene)
 {
     int xy[2];
     int i,j;
+    int positiondb = 0;
 
     srand(time(NULL));
     for(i = 0; i<40;i++)
@@ -163,8 +166,12 @@ void set_position(Scene* scene)
         }
         scene->cactus1[i].position.x = xy[0];
         scene->cactus1[i].position.y = xy[1];
+
+        scene->positions[positiondb].x = xy[0];
+        scene->positions[positiondb].y = xy[1];
+        positiondb++;
     }
-    for(i = 0; i<60;i++)
+    for(i = 0; i<70;i++)
     {
         for( j = 0; j<2; j++)
         {
@@ -172,6 +179,10 @@ void set_position(Scene* scene)
         }
         scene->cactus2[i].position.x = xy[0];
         scene->cactus2[i].position.y = xy[1];
+
+        scene->positions[positiondb].x = xy[0];
+        scene->positions[positiondb].y = xy[1];
+        positiondb++;
     }
     for(i = 0; i<40;i++)
     {
@@ -181,8 +192,14 @@ void set_position(Scene* scene)
         }
         scene->cactus3[i].position.x = xy[0];
         scene->cactus3[i].position.y = xy[1];
+
+        scene->positions[positiondb].x = xy[0];
+        scene->positions[positiondb].y = xy[1];
+        positiondb++;
     }
 
+    scene->eagle.position.x=-100;
+    scene->eagle.position.y=-100;
 }
 void draw_scene(const Scene* scene)
 {
@@ -209,6 +226,12 @@ void draw_scene(const Scene* scene)
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene->texture_id[5]);
     draw_model(&(scene->campfire));
+    glPopMatrix();
+
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene->texture_id[6]);
+    glTranslatef(scene->eagle.position.x,2,scene->eagle.position.y);
+    draw_model(&(scene->eagle));
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
@@ -275,7 +298,7 @@ void draw_cactus(Scene* scene)
         glPopMatrix();
     }
     
-    for (i=0;i<60;i++)
+    for (i=0;i<70;i++)
     {
         glPushMatrix();
         glTranslatef(scene->cactus2[i].position.x,0,scene->cactus2[i].position.y);
@@ -292,4 +315,16 @@ void draw_cactus(Scene* scene)
         glPopMatrix();
     }
     
+}
+double calc_elapsed_scenetime()
+{
+	static int last_frame_time = 1;
+	int current_time;
+	double elapsed_time;
+
+	current_time = glutGet(GLUT_ELAPSED_TIME);
+	elapsed_time = (double)(current_time - last_frame_time) / 1000.0;
+	last_frame_time = current_time;
+
+	return elapsed_time;
 }

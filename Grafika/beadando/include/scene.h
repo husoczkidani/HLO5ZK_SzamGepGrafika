@@ -6,6 +6,7 @@
 
 #include <obj/model.h>
 
+//for the future(movable objects)
 typedef struct Object
 {
 	Model model;
@@ -15,27 +16,34 @@ typedef struct Object
 	vec3 prev_position;
 } Object;
 
-// Non movable objects
-typedef struct StaticObject
+typedef struct Cactuses
 {
-    Model model;
     vec3 position;
     float rotation;
-} StaticObject;
+} Cactuses;
 
 typedef struct Scene
 {
     GLuint staticobject_display_list_id[4];
-
-    StaticObject hills;
-    StaticObject cottage;
-    StaticObject campfire;
-    StaticObject aloe[20];
-    StaticObject cactus1[40];
-    StaticObject cactus2[60];
-    StaticObject cactus3[40];
-    Material material;
     GLuint texture_id[10];
+
+    Model hills;
+    Model cottage;
+    Model campfire;
+    Model cactus1_model;
+    Model cactus2_model;
+    Model cactus3_model;
+
+    Object eagle;
+
+    Cactuses cactus1[40];
+    Cactuses cactus2[70];
+    Cactuses cactus3[40];
+
+    vec3 positions[150];
+
+    Material material;
+    
     float light;
 } Scene;
 
@@ -99,5 +107,7 @@ void set_position(Scene* scene);
  * Set the object rotation
  */
 void set_rotation(Scene* scene);
+
+double calc_elapsed_scenetime();
 
 #endif /* SCENE_H */
