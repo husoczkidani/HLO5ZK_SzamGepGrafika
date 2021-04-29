@@ -67,7 +67,7 @@ void init_textures(Scene* scene)
     scene->texture_id[2] = load_texture("textures/ceiling.png");
     scene->texture_id[3] = load_texture("textures/guide.png");
     scene->texture_id[4] = load_texture("textures/fa.png");
-    scene->texture_id[5] = load_texture("textures/campfire.png");
+    scene->texture_id[5] = load_texture("textures/campfire2.png");
     scene->texture_id[6] = load_texture("textures/eagle.png");
 
 
