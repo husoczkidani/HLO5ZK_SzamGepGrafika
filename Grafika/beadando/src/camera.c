@@ -119,7 +119,7 @@ void move_camera_forward(struct Camera *camera, double distance)
 
 	camera->position.x += cos(angle) * distance;
 	camera->position.y += sin(angle) * distance;
-	can_move(camera,&scene);
+    can_move(camera,&scene);
 }
 
 void move_camera_backward(struct Camera *camera, double distance)
@@ -129,7 +129,7 @@ void move_camera_backward(struct Camera *camera, double distance)
 
 	camera->position.x -= cos(angle) * distance;
 	camera->position.y -= sin(angle) * distance;
-	can_move(camera,&scene);
+    can_move(camera,&scene);
 }
 
 void step_camera_left(struct Camera *camera, double distance)
@@ -139,7 +139,7 @@ void step_camera_left(struct Camera *camera, double distance)
 
 	camera->position.x -= cos(angle) * distance;
 	camera->position.y -= sin(angle) * distance;
-	can_move(camera,&scene);
+    can_move(camera,&scene);
 }
 
 void step_camera_right(struct Camera *camera, double distance)
@@ -149,7 +149,7 @@ void step_camera_right(struct Camera *camera, double distance)
 
 	camera->position.x += cos(angle) * distance;
 	camera->position.y += sin(angle) * distance;
-	can_move(camera,&scene);
+    can_move(camera,&scene);
 }
 void camera_jump(struct Camera *camera, double distance)
 {
@@ -157,14 +157,13 @@ void camera_jump(struct Camera *camera, double distance)
 	
 	if (camera->position.z <= 2)
 		camera->position.z += distance;
-	can_move(camera,&scene);
 }
 void move_camera_up(struct Camera *camera, double distance)
 {
 	camera->prev_position = camera->position;
 	if (camera->position.z < size)
 		camera->position.z += distance;
-	can_move(camera,&scene);
+
 }
 
 void move_camera_down(struct Camera *camera, double distance)
@@ -172,6 +171,6 @@ void move_camera_down(struct Camera *camera, double distance)
 	camera->prev_position = camera->position;
 	if (camera->position.z > 1)
 		camera->position.z -= distance;
-	can_move(camera,&scene);
+
 }
 
