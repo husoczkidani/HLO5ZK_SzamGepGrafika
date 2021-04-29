@@ -32,7 +32,6 @@ void can_move(Camera* camera, struct Scene* scene)
 		{
 			camera->position = camera->prev_position;
 		}
-		printf("%d", scene->positions[i].x);
 		i++;
 	}
 }

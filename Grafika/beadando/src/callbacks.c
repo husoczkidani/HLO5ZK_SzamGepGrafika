@@ -224,6 +224,7 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
 }
 void idle()
 {
+    can_move(&camera,&scene);
     glutPostRedisplay();
 }
 
