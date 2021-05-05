@@ -20,9 +20,8 @@ typedef struct Camera
  */
 int is_help_visible;
 
-struct Scene scene;
 
-void can_move(Camera* camera, struct Scene* scene);
+void can_move(Camera* camera);
 
 /**
  * Initialize the camera to the start position.

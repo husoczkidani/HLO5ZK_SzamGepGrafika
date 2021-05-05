@@ -7,13 +7,11 @@
 /**
  * Teendők:
  * callback refactor
- * kameramozgatás
- * ugrás
- * hitbox, föld plafon
- * fény állítás
- * modellek elhelyezése a pályán
  * történet írás a játékhoz
  * játékbeli fuunkciók
+ * meglovagolható állat
+ * sasok random mozgása az égen
+ * objektumok külön fájlokba rendezése
  */
 
 
