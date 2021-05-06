@@ -45,12 +45,13 @@ int main(int argc, char* argv[])
 
     window = glutCreateWindow("Husoczki Daniel HLO5ZK Grafika beadando 2021");
     glutSetWindow(window);
+   
 
     init_opengl();
     init_scene(&scene);
     init_camera(&camera);
     set_callbacks();
-
+    glClearColor(0.0f, 0.3953f, 0.6047f, 0.5f);
     glutMainLoop();
 
     return 0;

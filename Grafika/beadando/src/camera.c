@@ -37,7 +37,7 @@ void init_camera(Camera* camera)
 	camera->pose.y = 0;
 	camera->pose.z = -135;
 
-    is_help_visible = FALSE;
+    is_help_visible = TRUE;
 }
 
 void set_view(const Camera* camera)
@@ -164,4 +164,3 @@ void move_camera_down(struct Camera *camera, double distance)
 		camera->position.z -= distance;
 
 }
-

@@ -22,6 +22,7 @@ struct Action
 {
 	int jump;
 	int sprint;
+	int walk;
 	int move_forward;
 	int move_backward;
 	int step_left;
@@ -30,7 +31,7 @@ struct Action
 	int move_down;
 	int increase_light;
 	int decrease_light;
-	int move_trophy;
+	
 };
 struct Action action;
 

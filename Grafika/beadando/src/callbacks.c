@@ -101,6 +101,9 @@ void keyboard(unsigned char key, int x, int y)
     case '-':
         action.decrease_light = TRUE;
         break;
+    case 'c':
+        action.walk = TRUE;
+        break;
     case 32 :
         if(camera.position.z <=1)
 			action.jump = TRUE;
@@ -151,6 +154,9 @@ void keyboard_up(unsigned char key, int x, int y)
     case '-':
         action.decrease_light = FALSE;
         break;
+    case 'c':
+        action.walk = FALSE;
+        break;
     case 32 :
         action.jump = FALSE;
         break;
@@ -169,11 +175,19 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
     distance = elapsed_time * CAMERA_SPEED * speed;
     jumpdistance = elapsed_time * CAMERA_SPEED * jumpspeed;
 
+    if(action.walk == TRUE)
+    {
+        distance = elapsed_time * CAMERA_SPEED * speed /2;
+    }
+    if(action.walk == FALSE)
+    {
+        distance = elapsed_time * CAMERA_SPEED * speed;
+    }
     if(action.sprint == TRUE)
     {
-        distance = elapsed_time * CAMERA_SPEED * speed*1.5;
+        distance = elapsed_time * CAMERA_SPEED * speed * 1.5;
     }
-    if(action.sprint == FALSE)
+    if(action.sprint == FALSE && action.walk == FALSE)
     {
         distance = elapsed_time * CAMERA_SPEED * speed;
     }
@@ -221,6 +235,8 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
 		    scene.light -= 0.05;
         }
     }
+
+    
 }
 void idle()
 {
