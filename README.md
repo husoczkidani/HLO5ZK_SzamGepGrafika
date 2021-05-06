@@ -3,12 +3,12 @@ A féléves feladatom egy sivatagban játszódó játék. A sivatagi "játékter
 Történet:
 
 Az eddigi állapot:
-    - a "játékteret" határoló hegység kész
-    - talaj, ég kész
-    - kaktuszok elhelyezve
-    - kezdő faház, ütközésvizsgálattal kész
-    - kameramozgatás ,mozgás kész
-    - -állítható fények kész
+   <li>  a "játékteret" határoló hegység kész </li>
+   <li>  talaj, ég kész </li>
+   <li>  kaktuszok elhelyezve </li>
+   <li>  kezdő faház, ütközésvizsgálattal kész </li>
+   <li>  kameramozgatás ,mozgás kész </li>
+   <li>  -állítható fények kész </li>
 
 Tervek:
     - interaktív dolgok megoldása
