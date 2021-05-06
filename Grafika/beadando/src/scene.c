@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "skybox.h"
 
 #include <GL/glut.h>
 
@@ -13,6 +14,7 @@ void init_scene(Scene* scene)
     init_models(scene);
     init_lists(scene);
     init_textures(scene);
+    init_skybox(&(scene->skybox));
     set_position(scene);
     set_rotation(scene);
     scene->light = 0.5f;
@@ -209,6 +211,10 @@ void draw_scene(const Scene* scene)
 
     draw_ground(scene);
     draw_cactus(scene);
+    glPushMatrix();
+    glRotatef(-90,1,0,0);
+    draw_skybox(&(scene->skybox));
+    glPopMatrix();
     
 
     glPushMatrix();

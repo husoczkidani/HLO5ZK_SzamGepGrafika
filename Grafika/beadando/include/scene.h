@@ -3,6 +3,7 @@
 
 #include "camera.h"
 #include "texture.h"
+#include "skybox.h"
 
 #include <obj/model.h>
 
@@ -44,6 +45,8 @@ typedef struct Scene
     vec3 positions[150];
 
     Material material;
+
+    Skybox skybox;
     
     float light;
 } Scene;
