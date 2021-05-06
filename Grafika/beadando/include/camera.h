@@ -3,6 +3,7 @@
 
 #include "utils.h"
 #include "scene.h"
+#include "callbacks.h"
 
 #define CAMERA_SPEED 3.0
 /**
@@ -21,7 +22,7 @@ typedef struct Camera
 int is_help_visible;
 
 
-void can_move(Camera* camera);
+
 
 /**
  * Initialize the camera to the start position.

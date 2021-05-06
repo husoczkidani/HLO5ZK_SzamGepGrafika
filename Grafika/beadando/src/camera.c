@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "scene.h"
+#include "callbacks.h"
 
 #include <GL/glut.h>
 
@@ -7,25 +8,6 @@
 #define size 110
 #define sensitivity 3
 
-void can_move(Camera* camera)
-{
-    if(camera->position.x>size || camera->position.x<-size || camera->position.y<-size || camera->position.y>size)
-	{
-		camera->position = camera->prev_position;
-	}
-	if(camera->position.x<10 && camera->position.x>-10 && camera->position.y<10 && camera->position.y>-10)
-	{
-		camera->position = camera->prev_position;
-	}
-	if(camera->position.x<-105 && camera->position.y > 106 && camera->position.y < 106.5)
-	{
-		camera->position = camera->prev_position;
-	}
-	if((camera->position.x <-104.5 && camera->position.x > -105) && ((camera->position.y > 106 && camera->position.y < 107.5) || camera->position.y > 108))
-	{
-		camera->position = camera->prev_position;
-	}
-}
 
 void init_camera(Camera* camera)
 {

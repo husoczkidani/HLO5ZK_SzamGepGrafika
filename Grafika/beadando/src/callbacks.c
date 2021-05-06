@@ -4,6 +4,7 @@
 
 #define VIEWPORT_RATIO (16.0 / 9.0)
 #define VIEWPORT_ASPECT 50.0
+#define size 110
 
 struct {
     int x;
@@ -254,4 +255,38 @@ double calc_elapsed_time()
 	last_frame_time = current_time;
 
 	return elapsed_time;
+}
+
+void can_move(struct Camera* camera)
+{
+    if(camera->position.x>size || camera->position.x<-size || camera->position.y<-size || camera->position.y>size)
+	{
+		camera->position = camera->prev_position;
+	}
+	if(camera->position.x<10 && camera->position.x>-10 && camera->position.y<10 && camera->position.y>-10)
+	{
+		camera->position = camera->prev_position;
+	}
+	if(camera->position.x<-105 && camera->position.y > 106 && camera->position.y < 106.5)
+	{
+		camera->position = camera->prev_position;
+	}
+	if((camera->position.x <-104.5 && camera->position.x > -105) && ((camera->position.y > 106 && camera->position.y < 107.5) || camera->position.y > 108))
+	{
+		camera->position = camera->prev_position;
+	}
+    int i;
+    float x[2],y[2];
+    float width = 0.3;
+    for(i=0;i<150;i++)
+    {
+        x[0] = scene.positions[i].x + width;
+        x[1] = scene.positions[i].x - width;
+        y[0] = (scene.positions[i].y* (-1)) + width;
+        y[1] = (scene.positions[i].y* (-1)) - width;
+        if((camera->position.x < x[0]) && (camera ->position.x > x[1]) && (camera->position.y < y[0]) && (camera->position.y > y[1]))
+        {
+             camera->position = camera->prev_position;
+        }
+    }
 }

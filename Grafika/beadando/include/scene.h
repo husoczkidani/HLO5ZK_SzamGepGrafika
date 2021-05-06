@@ -26,6 +26,7 @@ typedef struct Scene
 {
     GLuint staticobject_display_list_id[4];
     GLuint texture_id[10];
+    Model models[10];
 
     Model hills;
     Model cottage;
@@ -87,11 +88,6 @@ void init_lists(Scene* scene);
  * Make and draw the ground
  */
 void draw_ground(Scene* scene);
-
-/**
- * Make and draw the sky
- */
-void draw_sky(Scene* scene);
 
 /**
  * Draw the cactuses

@@ -153,7 +153,7 @@ void set_rotation(Scene* scene)
 }
 void set_position(Scene* scene)
 {
-    int xy[2];
+    float xy[2];
     int i,j;
     int positiondb = 0;
 
@@ -197,7 +197,6 @@ void set_position(Scene* scene)
         scene->positions[positiondb].y = xy[1];
         positiondb++;
     }
-
     scene->eagle.position.x=-100;
     scene->eagle.position.y=-100;
 }
@@ -208,7 +207,6 @@ void draw_scene(const Scene* scene)
     set_lighting(scene);
     glRotatef(90,1,0,0);
 
-    //draw_sky(scene);
     draw_ground(scene);
     draw_cactus(scene);
     
@@ -235,35 +233,6 @@ void draw_scene(const Scene* scene)
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
-}
-void draw_sky(Scene* scene)
-{
-    glBindTexture(GL_TEXTURE_2D, scene->texture_id[6]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glBegin(GL_QUADS);
-	int x, z,y;
-	for (x = -210; x < 210; x += 30)
-	{
-		for (z = -210; z <210; z += 30)
-		{
-            y=60;
-            glTexCoord2f(0.0, 0.0);
-			glNormal3f(0, -1, 0);
-			glVertex3f(x, y, z);
-			glTexCoord2f(1.0, 0.0);
-			glNormal3f(0, -1, 0);
-			glVertex3f(x + 30, y, z);
-			glTexCoord2f(1.0, 1.0);
-			glNormal3f(0, -1, 0);
-			glVertex3f(x + 30, y, z + 30);
-			glTexCoord2f(0.0, 1.0);
-			glNormal3f(0, -1, 0);
-			glVertex3f(x, y, z + 30);   
-		}
-	}
-	glEnd();
 }
 void draw_ground(Scene* scene)
 {
@@ -323,6 +292,10 @@ void draw_cactus(Scene* scene)
         glCallList(scene->staticobject_display_list_id[2]);
         glPopMatrix();
     }
+    glPushMatrix();
+        glTranslatef(110,1,110);
+       draw_model(&(scene->cactus2_model));
+        glPopMatrix();
     
 }
 double calc_elapsed_scenetime()

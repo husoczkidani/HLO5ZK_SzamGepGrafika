@@ -10,12 +10,12 @@
 /**
  * Scene
  */
-Scene scene;
+struct Scene scene;
 
 /**
  * Camera
  */
-Camera camera;
+struct Camera camera;
 
 
 struct Action
@@ -75,5 +75,7 @@ void update_camera_position(struct Camera* camera, double elapsed_time);
 void idle();
 
 double calc_elapsed_time();
+
+void can_move(struct Camera* camera);
 
 #endif /* CALLBACKS_H */
