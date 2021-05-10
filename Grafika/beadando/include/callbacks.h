@@ -4,6 +4,7 @@
 #include "camera.h"
 #include "scene.h"
 #include "help.h"
+#include "horse.h"
 
 #include <GL/glut.h>
 
@@ -31,6 +32,7 @@ struct Action
 	int move_down;
 	int increase_light;
 	int decrease_light;
+	int get_on_the_horse;
 	
 };
 struct Action action;
@@ -77,5 +79,7 @@ void idle();
 double calc_elapsed_time();
 
 void can_move(struct Camera* camera);
+
+void get_on_the_horse(struct Camera* camera);
 
 #endif /* CALLBACKS_H */

@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "skybox.h"
+#include "horse.h"
 
 #include <GL/glut.h>
 
@@ -15,8 +16,10 @@ void init_scene(Scene* scene)
     init_lists(scene);
     init_textures(scene);
     init_skybox(&(scene->skybox));
+    init_horse(&(scene->horse));
     set_position(scene);
     set_rotation(scene);
+    
     scene->light = 0.5f;
 
     
@@ -36,30 +39,29 @@ void init_scene(Scene* scene)
 }
 void init_models(Scene* scene)
 {
-    load_model(&(scene->hills), "models/hills.obj");
-    load_model(&(scene->cottage), "models/cottages.obj");
-    load_model(&(scene->campfire), "models/campfire.obj");
-    load_model(&(scene->cactus1_model), "models/cactus01.obj");
-    load_model(&(scene->cactus2_model), "models/cactus02.obj");
-    load_model(&(scene->cactus3_model), "models/cactus03.obj");
-    load_model(&(scene->eagle), "models/eagle.obj");
-
+    load_model(&(scene->models[0]), "models/eagle.obj");
+    load_model(&(scene->models[1]), "models/hills.obj");
+    load_model(&(scene->models[2]), "models/cottages.obj");
+    load_model(&(scene->models[3]), "models/campfire.obj");
+    load_model(&(scene->models[4]), "models/cactus01.obj");
+    load_model(&(scene->models[5]), "models/cactus02.obj");
+    load_model(&(scene->models[6]), "models/cactus03.obj");
 }
 void init_lists(Scene* scene)
 {
     scene->staticobject_display_list_id[0] = glGenLists(1);
     glNewList(scene->staticobject_display_list_id[0],GL_COMPILE);
-    draw_model(&(scene->cactus1_model));
+    draw_model(&(scene->models[4]));
     glEndList();
 
     scene->staticobject_display_list_id[1] = glGenLists(1);
     glNewList(scene->staticobject_display_list_id[1],GL_COMPILE);
-    draw_model(&(scene->cactus2_model));
+    draw_model(&(scene->models[5]));
     glEndList();
 
     scene->staticobject_display_list_id[2] = glGenLists(1);
     glNewList(scene->staticobject_display_list_id[2],GL_COMPILE);
-    draw_model(&(scene->cactus3_model));
+    draw_model(&(scene->models[6]));
     glEndList();
 }
 void init_textures(Scene* scene)
@@ -71,8 +73,6 @@ void init_textures(Scene* scene)
     scene->texture_id[4] = load_texture("textures/fa.png");
     scene->texture_id[5] = load_texture("textures/campfire2.png");
     scene->texture_id[6] = load_texture("textures/eagle.png");
-
-
 }
 void set_lighting(Scene* scene)
 {
@@ -102,7 +102,6 @@ void set_lighting(Scene* scene)
     glLightfv(GL_LIGHT0, GL_SPECULAR, specular_light);
     glLightfv(GL_LIGHT0, GL_POSITION, position);
 }
-
 void set_material(const Material* material)
 {
     float ambient_material_color[] = {
@@ -129,7 +128,6 @@ void set_material(const Material* material)
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &(material->shininess));
 }
-
 void set_rotation(Scene* scene)
 {
     int rotationz;
@@ -207,36 +205,32 @@ void draw_scene(const Scene* scene)
     glEnable(GL_TEXTURE_2D);
     set_material(&(scene->material));
     set_lighting(scene);
+
+    glPushMatrix();
+    draw_skybox(&(scene->skybox));
+    glPopMatrix();
+
     glRotatef(90,1,0,0);
 
     draw_ground(scene);
     draw_cactus(scene);
-    glPushMatrix();
-    glRotatef(-90,1,0,0);
-    draw_skybox(&(scene->skybox));
-    glPopMatrix();
-    
+    draw_horse(&(scene->horse));
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene->texture_id[0]);
-    draw_model(&(scene->hills));
+    draw_model(&(scene->models[1]));
     glPopMatrix();
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene->texture_id[4]);
-    draw_model(&(scene->cottage));
+    draw_model(&(scene->models[2]));
     glPopMatrix();
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene->texture_id[5]);
-    draw_model(&(scene->campfire));
+    draw_model(&(scene->models[3]));
     glPopMatrix();
 
-    glPushMatrix();
-    glBindTexture(GL_TEXTURE_2D, scene->texture_id[6]);
-    glTranslatef(scene->eagle.position.x,2,scene->eagle.position.y);
-    draw_model(&(scene->eagle));
-    glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
 }
@@ -298,10 +292,6 @@ void draw_cactus(Scene* scene)
         glCallList(scene->staticobject_display_list_id[2]);
         glPopMatrix();
     }
-    glPushMatrix();
-        glTranslatef(110,1,110);
-       draw_model(&(scene->cactus2_model));
-        glPopMatrix();
     
 }
 double calc_elapsed_scenetime()

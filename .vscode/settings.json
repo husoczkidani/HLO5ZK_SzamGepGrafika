@@ -9,7 +9,8 @@
         "stdlib.h": "c",
         "regex": "c",
         "glut.h": "c",
-        "help.h": "c"
+        "help.h": "c",
+        "xlocale": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

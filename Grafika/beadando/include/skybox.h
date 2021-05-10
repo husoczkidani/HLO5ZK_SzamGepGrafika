@@ -1,8 +1,8 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
-#include <utils.h>
-#include <camera.h>
+#include "utils.h"
+#include "camera.h"
 
 #include <obj/model.h>
 

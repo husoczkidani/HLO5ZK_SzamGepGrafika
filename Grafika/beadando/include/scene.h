@@ -1,11 +1,15 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+
+
 #include "camera.h"
 #include "texture.h"
+#include "horse.h"
 #include "skybox.h"
 
 #include <obj/model.h>
+
 
 //for the future(movable objects)
 typedef struct Object
@@ -29,14 +33,8 @@ typedef struct Scene
     GLuint texture_id[10];
     Model models[10];
 
-    Model hills;
-    Model cottage;
-    Model campfire;
-    Model cactus1_model;
-    Model cactus2_model;
-    Model cactus3_model;
-
     Object eagle;
+    Horse horse;
 
     Cactuses cactus1[40];
     Cactuses cactus2[70];

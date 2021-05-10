@@ -1,6 +1,6 @@
 #include "camera.h"
-#include "scene.h"
 #include "callbacks.h"
+#include "horse.h"
 
 #include <GL/glut.h>
 
@@ -141,8 +141,10 @@ void move_camera_up(struct Camera *camera, double distance)
 
 void move_camera_down(struct Camera *camera, double distance)
 {
+	if(is_player_on_the_horse == FALSE)
+	{
 	camera->prev_position = camera->position;
 	if (camera->position.z > 1)
-		camera->position.z -= distance;
-
+		camera->position.z -= distance;	
+	}
 }

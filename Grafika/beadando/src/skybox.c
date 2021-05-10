@@ -24,7 +24,6 @@ void kill_skybox()
 void draw_skybox(Skybox* skybox)
 {
 
-
     glBindTexture(GL_TEXTURE_2D, skybox->skybox_right);
     glBegin(GL_QUADS);
         glTexCoord2f(1,1);
@@ -99,4 +98,5 @@ void draw_skybox(Skybox* skybox)
         glTexCoord2f(1,1);
         glVertex3f(300.0f, -300.0f, -300.0f); 
     glEnd();
+    
 }

@@ -1,6 +1,7 @@
 #include "callbacks.h"
 #include "help.h"
 #include "camera.h"
+#include "horse.h"
 
 #define VIEWPORT_RATIO (16.0 / 9.0)
 #define VIEWPORT_ASPECT 50.0
@@ -18,11 +19,14 @@ void display()
     glMatrixMode(GL_MODELVIEW);
 
     update_camera_position(&camera, elapsed_time);
-
     glPushMatrix();
     set_view(&camera);
     draw_scene(&scene);
+
+
     glPopMatrix();
+
+   
 
     if (is_help_visible) {
         show_help(&scene);
@@ -70,6 +74,11 @@ void motion(int x, int y)
     vertical = mouse_position.y - y;
 
     rotate_camera(&camera, horizontal, vertical);
+    if(is_player_on_the_horse == TRUE)
+    {
+     rotate_horse(&(scene.horse),-horizontal);
+    }
+    
     mouse_position.x = x;
     mouse_position.y = y;
     glutPostRedisplay();
@@ -104,6 +113,16 @@ void keyboard(unsigned char key, int x, int y)
         break;
     case 'c':
         action.walk = TRUE;
+        break;
+    case 'e':
+        if(is_player_on_the_horse == FALSE)
+        {
+            action.get_on_the_horse = TRUE;
+        }else
+        {
+            action.get_on_the_horse = FALSE;
+        }
+           
         break;
     case 32 :
         if(camera.position.z <=1)
@@ -204,22 +223,55 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
 	if (action.move_forward == TRUE)
 	{
 		move_camera_forward(camera, distance);
+        if(is_player_on_the_horse == TRUE)
+        {
+         move_horse_forward(&(scene.horse), distance);
+        }
+        
 	}
 
 	if (action.move_backward == TRUE)
 	{
 		move_camera_backward(camera, distance);
+        if(is_player_on_the_horse == TRUE)
+        {
+         move_horse_backward(&(scene.horse), distance);
+        }
 	}
 
 	if (action.step_left == TRUE)
 	{
-		step_camera_left(camera, distance);
+        if(is_player_on_the_horse == FALSE)
+        {
+         step_camera_left(camera, distance);
+        }
 	}
 
 	if (action.step_right == TRUE)
 	{
-		step_camera_right(camera, distance);
+        if(is_player_on_the_horse == FALSE)
+        {
+         step_camera_right(camera, distance);
+        }
 	}
+    
+    if(action.get_on_the_horse == TRUE)
+    {
+        if(is_player_on_the_horse == FALSE)
+        {
+           get_on_the_horse(camera);
+        }
+    }
+
+    if(action.get_on_the_horse == FALSE)
+    {
+        if(is_player_on_the_horse == TRUE)
+        {
+            camera->position.z = 1;
+            is_player_on_the_horse = FALSE;
+        }
+        
+    }
 
     if(action.increase_light == TRUE)
     {
@@ -288,5 +340,20 @@ void can_move(struct Camera* camera)
         {
              camera->position = camera->prev_position;
         }
+    }   
+}
+void get_on_the_horse(struct Camera* camera)
+{
+    double horsey = -scene.horse.position.y;
+    if((camera->position.x > scene.horse.position.x-1 && camera->position.x < scene.horse.position.x+1) && (camera->position.y > horsey-1 && camera->position.y < horsey+1))
+    {
+        is_player_on_the_horse = TRUE;
+        camera->position.x = scene.horse.position.x;
+        camera->position.y = -scene.horse.position.y;
+        camera->position.z = 2;
+        camera->pose.z = scene.horse.pose.z*(-1);
+    }else
+    {
+        action.get_on_the_horse = FALSE;
     }
 }
