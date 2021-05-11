@@ -294,15 +294,3 @@ void draw_cactus(Scene* scene)
     }
     
 }
-double calc_elapsed_scenetime()
-{
-	static int last_frame_time = 1;
-	int current_time;
-	double elapsed_time;
-
-	current_time = glutGet(GLUT_ELAPSED_TIME);
-	elapsed_time = (double)(current_time - last_frame_time) / 1000.0;
-	last_frame_time = current_time;
-
-	return elapsed_time;
-}

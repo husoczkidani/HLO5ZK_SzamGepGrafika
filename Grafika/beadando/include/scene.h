@@ -105,6 +105,4 @@ void set_position(Scene* scene);
  */
 void set_rotation(Scene* scene);
 
-double calc_elapsed_scenetime();
-
 #endif /* SCENE_H */

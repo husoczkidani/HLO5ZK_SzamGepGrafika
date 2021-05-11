@@ -19,6 +19,9 @@ typedef struct Skybox
     GLuint skybox_front;
 } Skybox;
 
+int day_loaded;
+int night_loaded;
+
 /**
  * Initialize the skybox.
  */
@@ -34,4 +37,7 @@ void draw_skybox(Skybox* skybox);
  */
 void kill_skybox();
 
+void load_daybox(Skybox* skybox);
+
+void load_nightbox(Skybox* skybox);
 #endif /* SKYBOX_H */

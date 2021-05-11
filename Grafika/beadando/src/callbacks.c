@@ -2,6 +2,7 @@
 #include "help.h"
 #include "camera.h"
 #include "horse.h"
+#include "skybox.h"
 
 #define VIEWPORT_RATIO (16.0 / 9.0)
 #define VIEWPORT_ASPECT 50.0
@@ -267,6 +268,8 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
     {
         if(is_player_on_the_horse == TRUE)
         {
+            camera->position.x = camera->position.x + 1;
+            camera->position.y = camera->position.y+ 1;
             camera->position.z = 1;
             is_player_on_the_horse = FALSE;
         }
@@ -279,6 +282,12 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
         {
 		    scene.light += 0.05;
         }
+        if(scene.light > 0.1 && day_loaded == FALSE)
+        {
+            day_loaded = TRUE;
+            night_loaded = FALSE;
+            load_daybox(&(scene.skybox));
+        }
     }
 
     if(action.decrease_light == TRUE)
@@ -286,6 +295,12 @@ void update_camera_position(struct Camera* camera, double elapsed_time)
         if (scene.light > 0.05)
         {
 		    scene.light -= 0.05;
+        }
+        if(scene.light < 0.1 && night_loaded == FALSE)
+        {
+            day_loaded = FALSE;
+            night_loaded = TRUE;
+            load_nightbox(&(scene.skybox));
         }
     }
 
@@ -356,4 +371,38 @@ void get_on_the_horse(struct Camera* camera)
     {
         action.get_on_the_horse = FALSE;
     }
+}
+
+void can_horse_move(struct Horse* horse)
+{
+    if(horse->position.x>size || horse->position.x<-size || horse->position.y<-size || horse->position.y>size)
+	{
+		horse->position = horse->prev_position;
+	}
+	if(horse->position.x<10 && horse->position.x>-10 && horse->position.y<10 && horse->position.y>-10)
+	{
+		horse->position = horse->prev_position;
+	}
+	if(horse->position.x<-105 && horse->position.y > 106 && horse->position.y < 106.5)
+	{
+		horse->position = horse->prev_position;
+	}
+	if((horse->position.x <-104.5 && horse->position.x > -105) && ((horse->position.y > 106 && horse->position.y < 107.5) || horse->position.y > 108))
+	{
+		horse->position = horse->prev_position;
+	}
+    int i;
+    float x[2],y[2];
+    float width = 0.3;
+    for(i=0;i<150;i++)
+    {
+        x[0] = scene.positions[i].x + width;
+        x[1] = scene.positions[i].x - width;
+        y[0] = (scene.positions[i].y) + width;
+        y[1] = (scene.positions[i].y) - width;
+        if((horse->position.x < x[0]) && (horse ->position.x > x[1]) && (horse->position.y < y[0]) && (horse->position.y > y[1]))
+        {
+             horse->position = horse->prev_position;
+        }
+    }   
 }

@@ -10,7 +10,9 @@
         "regex": "c",
         "glut.h": "c",
         "help.h": "c",
-        "xlocale": "c"
+        "xlocale": "c",
+        "xutility": "c",
+        "iterator": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

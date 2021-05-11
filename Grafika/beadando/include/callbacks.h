@@ -67,8 +67,14 @@ void keyboard(unsigned char key, int x, int y);
  */
 void keyboard_up(unsigned char key, int x, int y);
 
+/**
+ * Call after special key was pressed down
+ */
 void specialFunc(int key, int x, int y);
 
+/**
+ * Updates the positions after the pressed key
+ */
 void update_camera_position(struct Camera* camera, double elapsed_time);
 
 /**
@@ -76,10 +82,24 @@ void update_camera_position(struct Camera* camera, double elapsed_time);
  */
 void idle();
 
+/**
+ * Calculates elapsed time after an event
+ */
 double calc_elapsed_time();
 
+/**
+ * Bounding box for camera
+ */
 void can_move(struct Camera* camera);
 
+/**
+ * Checks if the player is close enough to the horse, sets the right angle and position 
+ */
 void get_on_the_horse(struct Camera* camera);
+
+/**
+ * Bounding box for horse
+ */
+void can_horse_move(struct Horse* horse);
 
 #endif /* CALLBACKS_H */

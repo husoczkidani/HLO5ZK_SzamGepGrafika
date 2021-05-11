@@ -9,11 +9,27 @@
 
 void init_skybox(Skybox* skybox)
 {
+    day_loaded = TRUE;
+    night_loaded = FALSE;
+    load_daybox(skybox);
+}
+
+void load_daybox(Skybox* skybox)
+{
     skybox->skybox_right = load_texture("textures/right.png");
     skybox->skybox_left = load_texture("textures/left.png");
     skybox->skybox_top = load_texture("textures/top.png");
     skybox->skybox_back = load_texture("textures/back.png");
     skybox->skybox_front = load_texture("textures/front.png");
+}
+
+void load_nightbox(Skybox* skybox)
+{
+    skybox->skybox_right = load_texture("textures/night_right.png");
+    skybox->skybox_left = load_texture("textures/night_left.png");
+    skybox->skybox_top = load_texture("textures/night_top.png");
+    skybox->skybox_back = load_texture("textures/night_back.png");
+    skybox->skybox_front = load_texture("textures/night_front.png");
 }
 
 void kill_skybox()

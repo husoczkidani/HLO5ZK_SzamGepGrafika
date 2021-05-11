@@ -26,14 +26,29 @@ typedef struct Horse
 
 int is_player_on_the_horse;
 
+/**
+ * Initialize the horse
+ */
 void init_horse(Horse *horse);
 
+/**
+ * Draw the horse
+ */
 void draw_horse( Horse *horse);
 
+/**
+ * Sets the rotation of the horse
+ */
 void rotate_horse(Horse* horse, double horizontal);
 
+/**
+ * Moves the horse forward
+ */
 void move_horse_forward(Horse* horse, double distance);
 
+/**
+ * Moves the horse backwards
+ */
 void move_horse_backward(Horse* horse, double distance);
 
 #endif /* HORSE_H */

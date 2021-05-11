@@ -58,6 +58,7 @@ void move_horse_forward(Horse* horse, double distance)
 
 	horse->position.x -= cos(angle) * distance;
 	horse->position.y -= sin(angle) * distance;
+	can_horse_move(horse);
 }
 void move_horse_backward(Horse* horse, double distance)
 {
@@ -66,4 +67,5 @@ void move_horse_backward(Horse* horse, double distance)
 
 	horse->position.x += cos(angle) * distance;
 	horse->position.y += sin(angle) * distance;
+	can_horse_move(horse);
 }
